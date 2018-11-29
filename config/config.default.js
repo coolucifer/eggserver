@@ -15,3 +15,10 @@ exports.news = {
 exports.files = {
   filePath: './sources',
 };
+
+exports.mongoose = {
+  client: {
+    url: 'mongodb://coolucifer:Inuyasha0425@89.208.248.45:27017/admin',
+    options: {}
+  }
+};
