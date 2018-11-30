@@ -4,7 +4,7 @@ module.exports = app => {
   const Schema = mongoose.Schema;
 
   const PostSchema = new Schema({
-    title: { type: String },
+    title: { type: String, required: true },
     author: { type: String },
     createTime: { type: Date, default: Date.now },
     updateTime: { type: Date, default: Date.now },
