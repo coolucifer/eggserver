@@ -5,21 +5,21 @@ module.exports = app => {
     // 调整mongodb时区
     // https://blog.csdn.net/u010668495/article/details/50817136
     app.TZ = 'Asia/Shanghai';
-    Date.prototype.TimeZone = new Map([
+    const TimeZone = new Map([
       ['Europe/London', 0],
-      ['Asia/Shanghai', -8],
-      ['America/New_York', 5]
+      ['Asia/Shanghai', +8],
+      ['America/New_York', -5]
     ]);
-    Date.prototype.zoneDate = () => {
-      if (app.TZ === undefined) return new Date();
-      for (let item of this.TimeZone.entries()) {
+    // Date.prototype.zoneDate = () => {
+    app.zoneDate = (date) => {
+      if (app.TZ === undefined) return new Date(date);
+      let d = date ? new Date(date) : new Date();
+      for (let item of TimeZone.entries()) {
         if (item[0] === app.TZ) {
-          let date = new Date();
-          date.setHours(date.getHours()+item[1]);
-          return date;
+          d.setHours(d.getHours()+item[1]);
         }
       }
-      return new Date();
-    }
+      return new Date(d);
+    };
   });
 }
