@@ -4,5 +4,6 @@ module.exports = (app) => {
   router.get('/api/filelist', controller.fs.list);
   router.get('/api/file', controller.fs.content);
   router.get('/api/get', controller.user.list);
+  router.post('/api/post', controller.post.create);
   // router.get('/news', controller.news.list);
 };
