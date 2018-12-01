@@ -7,5 +7,7 @@ module.exports = (app) => {
   router.get('/api/post/list', controller.post.list);
   // 创建文章
   router.post('/api/post', controller.post.create);
+  // 查询文章
+  router.get('/api/post', controller.post.query);
   // router.get('/news', controller.news.list);
 };

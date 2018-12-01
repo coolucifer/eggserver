@@ -11,6 +11,11 @@ class PostController extends Controller {
     let msg = await ctx.service.post.create();
     ctx.body = msg;
   }
+  async query() {
+    const { ctx } = this;
+    let msg = await ctx.service.post.query();
+    ctx.body = msg;
+  }
 };
 
 module.exports = PostController;
