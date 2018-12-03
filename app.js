@@ -11,24 +11,17 @@ module.exports = app => {
       ['Asia/Shanghai', +8],
       ['America/New_York', -5]
     ]);
+    const TimeZoneOffset = TimeZone.get(app.TZ);
     app.toLocalTime = (date) => {
       if (app.TZ === undefined) return new Date(date);
       let d = date ? new Date(date) : new Date();
-      for (let item of TimeZone.entries()) {
-        if (item[0] === app.TZ) {
-          d.setHours(d.getHours() + item[1]);
-        }
-      }
+      d.setHours(d.getHours() + TimeZoneOffset);
       return new Date(d);
     };
     app.toDbTime = (date) => {
       if (app.TZ === undefined) return new Date(date);
       let d = date ? new Date(date) : new Date();
-      for (let item of TimeZone.entries()) {
-        if (item[0] === app.TZ) {
-          d.setHours(d.getHours() - item[1]);
-        }
-      }
+      d.setHours(d.getHours() - TimeZoneOffset);
       return new Date(d);
     };
   });
