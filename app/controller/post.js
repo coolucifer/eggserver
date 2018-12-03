@@ -23,7 +23,8 @@ class PostController extends Controller {
   }
   async create() {
     const { ctx } = this;
-    let msg = await ctx.service.post.create()
+    const { body: params } = ctx.request;
+    let msg = await ctx.service.post.create(params)
       .then(res => {
         return { success: true, resultCode: '100', id: res._id };
       })
@@ -34,7 +35,8 @@ class PostController extends Controller {
   }
   async query() {
     const { ctx, app } = this;
-    let msg = await ctx.service.post.query()
+    const { id: params } = ctx.request.query;
+    let msg = await ctx.service.post.query(params)
       .then(res => {
         // 根据Id获取的文章是唯一的, 取查询到的数组的第0位
         let post = res[0];

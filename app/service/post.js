@@ -8,15 +8,13 @@ class PostService extends Service{
     // .sort(): 按id排序
     return ctx.model.Post.find({}, { title: 1, author: 1, createTime: 1, updateTime: 1 }).sort({ '_id': -1 });
   }
-  async create() {
+  async create(params) {
     const { ctx } = this;
-    const { body: params } = ctx.request;
     return await ctx.model.Post.create(params);
   }
-  async query() {
+  async query(postId) {
     const { ctx } = this;
-    const { id: params } = ctx.request.query;
-    const _id = mongoose.Types.ObjectId(params);
+    const _id = mongoose.Types.ObjectId(postId);
     return await ctx.model.Post.find({ _id });
   }
 };
