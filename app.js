@@ -3,6 +3,7 @@ module.exports = app => {
   app.beforeStart(async () => {
     // 应用会等待这个函数执行完成才启动
     // 调整mongodb时区
+    // 通过app.toLocalTime()调用
     // https://blog.csdn.net/u010668495/article/details/50817136
     app.TZ = 'Asia/Shanghai';
     const TimeZone = new Map([
