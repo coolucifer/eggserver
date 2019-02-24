@@ -36,7 +36,7 @@ exports.io = {
   init: {},
   namespace: {
     '/': {
-      connectionMiddleware: [],
+      connectionMiddleware: ['connection', 'room'],
       packetMiddleware: [],
     },
     '/example': {

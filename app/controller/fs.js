@@ -21,6 +21,7 @@ class FsController extends Controller {
       resultCode: '100',
     };
   }
+
   async content() {
     const { ctx } = this;
     const fName = ctx.query.fileName;

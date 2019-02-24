@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const { router, controller } = app;
+  const { router, controller, io } = app;
   // router.get('/', controller.home.index);
   router.get('/api/filelist', controller.fs.list);
   router.get('/api/file', controller.fs.content);
@@ -10,4 +10,6 @@ module.exports = (app) => {
   // 查询文章
   router.get('/api/post', controller.post.query);
   // router.get('/news', controller.news.list);
+  // socket.io
+  io.of('/').route('server', io.controller.default.server);
 };
