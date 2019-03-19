@@ -9,6 +9,8 @@ module.exports = (app) => {
   router.post('/api/post', controller.post.create);
   // 查询文章
   router.get('/api/post', controller.post.query);
+  // 更新文章
+  router.put('/api/post', controller.post.update);
   // router.get('/news', controller.news.list);
   // socket.io
   io.of('/').route('server', io.controller.default.server);

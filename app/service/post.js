@@ -12,6 +12,10 @@ class PostService extends Service{
     const { ctx } = this;
     return await ctx.model.Post.create(params);
   }
+  async update(id, params) {
+    const { ctx } = this;
+    return await ctx.model.Post.update({ '_id': id }, params);
+  }
   async query(postId) {
     const { ctx } = this;
     const _id = mongoose.Types.ObjectId(postId);

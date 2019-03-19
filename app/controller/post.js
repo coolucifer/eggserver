@@ -33,6 +33,18 @@ class PostController extends Controller {
       });
     ctx.body = msg;
   }
+  async update() {
+    const { ctx } = this;
+    const { body: params } = ctx.request;
+    const msg = await ctx.service.post.update(params._id, params)
+      .then(res => {
+        return { success: true, resultCode: '100', id: res._id };
+      })
+      .catch(err => {
+        return { success: false, err: err };
+      });
+    ctx.body = msg;
+  }
   async query() {
     const { ctx, app } = this;
     const { id: params } = ctx.request.query;
