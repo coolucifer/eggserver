@@ -11,6 +11,8 @@ module.exports = (app) => {
   router.get('/api/post', controller.post.query);
   // 更新文章
   router.put('/api/post', controller.post.update);
+  // 上传文件
+  router.post('/api/upload', controller.upload.index);
   // router.get('/news', controller.news.list);
   // socket.io
   io.of('/').route('server', io.controller.default.server);
