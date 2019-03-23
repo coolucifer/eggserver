@@ -45,3 +45,12 @@ exports.io = {
     },
   },
 };
+
+// egg-multipart文件上传
+exports.multipart = {
+  fileSize: '20mb',
+  // 添加白名单
+  fileExtensions: [
+    '.pdf',
+  ],
+};
