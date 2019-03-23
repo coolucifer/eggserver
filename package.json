@@ -12,13 +12,15 @@
   "author": "victor",
   "license": "ISC",
   "dependencies": {
+    "await-stream-ready": "^1.0.1",
     "egg": "^2.15.1",
     "egg-cors": "^2.2.0",
     "egg-mongoose": "^3.1.1",
     "egg-scripts": "^2.10.0",
     "egg-socket.io": "^4.1.5",
     "egg-view-nunjucks": "^2.2.0",
-    "moment": "^2.22.2"
+    "moment": "^2.22.2",
+    "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
     "egg-bin": "^4.10.0",
