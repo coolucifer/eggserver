@@ -18,7 +18,6 @@ exports.files = {
 
 exports.mongoose = {
   client: {
-    // url: 'mongodb://coolucifer:Inuyasha0425@89.208.248.45:27017/admin',
     url: 'mongodb://manager:main_db_manager@89.208.248.45:27017/main',
     options: {},
   },
