@@ -4,8 +4,7 @@ exports.nunjucks = {
 };
 
 exports.mongoose = {
-  // enable: true,
-  enable: false,
+  enable: true,
   package: 'egg-mongoose',
 };
 
