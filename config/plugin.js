@@ -10,7 +10,7 @@ exports.mongoose = {
 };
 
 exports.io = {
-  enable: false,
+  enable: true,
   package: 'egg-socket.io',
 };
 
