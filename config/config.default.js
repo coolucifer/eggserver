@@ -1,4 +1,7 @@
 exports.keys = '334433';
+
+exports.middleware = ['nuxt'];
+
 // 添加view配置
 exports.view = {
   defaultViewEngine: 'nunjucks',

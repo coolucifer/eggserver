@@ -4,12 +4,13 @@ exports.nunjucks = {
 };
 
 exports.mongoose = {
-  enable: true,
+  // enable: true,
+  enable: false,
   package: 'egg-mongoose',
 };
 
 exports.io = {
-  enable: true,
+  enable: false,
   package: 'egg-socket.io',
 };
 
