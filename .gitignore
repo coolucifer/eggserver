@@ -1,8 +1,7 @@
-/run/*
-/logs/*
-/node_modules
 # Created by .ignore support plugin (hsz.mobi)
 ### Node template
+# egg.js
+run
 # Logs
 logs
 *.log
