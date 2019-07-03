@@ -2,6 +2,10 @@
 
 module.exports = {
   srcDir: 'client/',
+  server: {
+    port: 7001, // default: 3000
+    host: '0.0.0.0', // default: localhost
+  },
   mode: 'universal',
   /*
   ** Headers of the page
@@ -53,16 +57,14 @@ module.exports = {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  axios: {
-    proxy: true,
-  },
-  proxy: {
-    '/api': {
-      target: 'https://doco.dev',
-      // 开启跨域
-      changeOrigin: true,
-    },
-  },
+  // axios: {
+  //   proxy: true,
+  // },
+  // proxy: {
+  //   '/api': {
+  //     target: 'https://doco.dev',
+  //   },
+  // },
   /*
   ** Build configuration
   */
