@@ -14,5 +14,5 @@ module.exports = (app) => {
   router.post('/api/upload', controller.upload.index);
   // router.get('/news', controller.news.list);
   // socket.io
-  // io.of('/').route('server', io.controller.default.server);
+  io.of('/').route('server', io.controller.default.server);
 };
