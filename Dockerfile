@@ -3,6 +3,7 @@
 # step 1
 FROM node:10.16.0 as build
 
+ENV HOST 0.0.0.0
 ENV NODE_ENV=production
 
 # Create app directory

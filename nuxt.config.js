@@ -16,7 +16,8 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      // { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
+      { hid: 'description', name: 'description', content: 'Doco.dev' },
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon_icon.png' },
@@ -58,9 +59,10 @@ module.exports = {
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
-  // axios: {
-  //   proxy: true,
-  // },
+  //  可以解决client请求都是localhost的问题
+  axios: {
+    proxy: true,
+  },
   // proxy: {
   //   '/api': {
   //     target: 'https://doco.dev',
