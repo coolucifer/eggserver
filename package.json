@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "egg-bin dev --sticky",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "egg-scripts start --daemon --sticky",
-    "stop": "egg-scripts stop"
+    "start": "egg-scripts start --sticky",
+    "stop": "egg-scripts stop",
+    "build": "nuxt build"
   },
   "author": "victor",
   "license": "ISC",
