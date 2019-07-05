@@ -43,6 +43,7 @@ module.exports = {
       src: '@/plugins/element-ui',
       ssr: true,
     },
+    { src: '@/plugins/ga.js', ssr: false },
     '@/plugins/axios',
   ],
   /*
