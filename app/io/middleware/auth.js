@@ -1,5 +1,3 @@
-const PREFIX = 'room';
-
 module.exports = () => async (ctx, next) => {
   const {
     app, socket, logger, helper,
@@ -14,6 +12,7 @@ module.exports = () => async (ctx, next) => {
 
   logger.debug('#user_info', id, room, userId);
 
+  // 踢出用户
   const tick = (tid, msg) => {
     logger.debug('#tick', tid, msg);
 
@@ -27,7 +26,6 @@ module.exports = () => async (ctx, next) => {
   };
 
   // 检查房间是否存在，不存在则踢出用户
-  // 备注：此处 app.redis 与插件无关，可用其他存储代替
   const hasRoom = true;
 
   logger.debug('#has_exist', hasRoom);

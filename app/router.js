@@ -14,5 +14,6 @@ module.exports = (app) => {
   router.post('/api/upload', controller.upload.index);
   // router.get('/news', controller.news.list);
   // socket.io
-  io.of('/').route('server', io.controller.default.server);
+  // route(服务器on收到的方法, 对应的controller)
+  io.of('/').route('message', io.controller.default.message);
 };

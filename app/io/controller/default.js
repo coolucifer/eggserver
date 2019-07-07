@@ -1,10 +1,17 @@
 const { Controller } = require('egg');
 
 class DefaultController extends Controller {
-  async ping() {
+  async message() {
     const { ctx, app } = this;
+    // ctx.args: [{...}, callback]
     const message = ctx.args[0];
-    await ctx.socket.emit('res', `Hi! I've got your messsage: ${message}`);
+    const callback = ctx.args[1];
+    await ctx.socket.emit('reply', Object.assign({}, message, {
+      from: 'server',
+      to: 'me',
+      timestamp: +new Date(),
+    }),
+    callback());
   }
 }
 
