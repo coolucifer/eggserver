@@ -39,12 +39,12 @@ module.exports = () => async (ctx, next) => {
   }
 
   // 用户加入
-  logger.debug('#join', room);
+  console.log('#join ', room);
   socket.join(room);
 
   // 在线列表
   nsp.adapter.clients(rooms, (err, clients) => {
-    logger.debug('#online_join', clients);
+    console.log('#online_join ', clients);
 
     // 更新在线用户列表
     nsp.to(room).emit('online', {

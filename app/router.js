@@ -16,4 +16,6 @@ module.exports = (app) => {
   // socket.io
   // route(服务器on收到的方法, 对应的controller)
   io.of('/').route('message', io.controller.default.message);
+  // 聊天
+  io.of('/').route('chat', io.controller.default.chat);
 };

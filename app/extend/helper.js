@@ -4,7 +4,7 @@ exports.relativeTime = time => moment(new Date(time * 1000)).fromNow();
 
 exports.parseMsg = (action, payload = {}, metadata = {}) => {
   const meta = Object.assign({}, {
-    timestamp: Date.now(),
+    timestamp: +Date.now(),
   }, metadata);
 
   return {

@@ -13,6 +13,25 @@ class DefaultController extends Controller {
     }),
     callback());
   }
+
+  async chat() {
+    const { ctx, app } = this;
+    const nps = app.io.of('/');
+    const message = ctx.args[0] || {};
+    console.log('chat msg: ', message);
+    const { socket } = ctx;
+    const client = socket.id;
+
+    try {
+      const { target, payload } = message;
+      if (!target) return;
+      // helper.js在app/extend目录下
+      const msg = ctx.helper.parseMsg('chat', payload, { client, target });
+      nps.to('default').emit('chat', msg);
+    } catch (e) {
+      app.logger.error(e);
+    }
+  }
 }
 
 module.exports = DefaultController;
