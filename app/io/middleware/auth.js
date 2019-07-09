@@ -41,9 +41,10 @@ module.exports = () => async (ctx, next) => {
   // 用户加入
   console.log('#join ', room);
   socket.join(room);
-
+  console.log('joined room: ', room, id);
   // 在线列表
-  nsp.adapter.clients(rooms, (err, clients) => {
+  nsp.in(room).clients((err, clients) => {
+  // nsp.adapter.clients(rooms, (err, clients) => {
     console.log('#online_join ', clients);
 
     // 更新在线用户列表
@@ -55,13 +56,15 @@ module.exports = () => async (ctx, next) => {
     });
   });
 
+
   await next();
 
   // 用户离开
   logger.debug('#leave', room);
 
   // 在线列表
-  nsp.adapter.clients(rooms, (err, clients) => {
+  nsp.in(room).clients((err, clients) => {
+  // nsp.adapter.clients(rooms, (err, clients) => {
     logger.debug('#online_leave', clients);
 
     // 获取 client 信息
