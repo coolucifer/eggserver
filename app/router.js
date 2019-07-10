@@ -13,9 +13,11 @@ module.exports = (app) => {
   // 上传文件
   router.post('/api/upload', controller.upload.index);
   // router.get('/news', controller.news.list);
+
   // socket.io
   // route(服务器on收到的方法, 对应的controller)
   io.of('/').route('message', io.controller.default.message);
   // 聊天
   io.of('/').route('chat', io.controller.default.chat);
+  io.of('/').route('online-list', io.controller.default.getOnlineList);
 };

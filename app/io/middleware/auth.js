@@ -40,12 +40,23 @@ module.exports = () => async (ctx, next) => {
 
   // 用户加入
   console.log('#join ', room);
-  socket.join(room);
+  socket.join(room, () => {
+    nsp.in(room).clients((err, clients) => {
+      console.log('clients: ', clients);
+    });
+  });
+
+  setTimeout(() => {
+    nsp.in(room).clients((err, client) => {
+      console.log('timeout: ', client);
+    });
+  }, 2000);
+
   console.log('joined room: ', room, id);
   // 在线列表
-  nsp.in(room).clients((err, clients) => {
-  // nsp.adapter.clients(rooms, (err, clients) => {
-    console.log('#online_join ', clients);
+  // nsp.in(room).clients((err, clients) => {
+  nsp.adapter.clients(rooms, (err, clients) => {
+    console.log('room clients: ', clients);
 
     // 更新在线用户列表
     nsp.to(room).emit('online', {

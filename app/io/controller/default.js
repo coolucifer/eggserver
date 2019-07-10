@@ -32,6 +32,20 @@ class DefaultController extends Controller {
       app.logger.error(e);
     }
   }
+
+  // 获取房间在线人员名单
+  async getOnlineList() {
+    const { ctx, app } = this;
+    const nsp = app.io.of('/');
+    const query = ctx.socket.handshake;
+    const callback = ctx.args[1];
+    const { room } = query;
+
+    nsp.in(room).clients((err, clients) => {
+      console.log('clients: ', clients);
+      callback(clients);
+    });
+  }
 }
 
 module.exports = DefaultController;
