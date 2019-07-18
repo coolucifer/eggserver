@@ -38,32 +38,24 @@ module.exports = () => async (ctx, next) => {
     return;
   }
 
-  // 用户加入
-  console.log('#join ', room);
-  socket.join(room, () => {
-    nsp.in(room).clients((err, clients) => {
-      console.log('clients: ', clients);
-    });
-  });
-
-  setTimeout(() => {
-    nsp.in(room).clients((err, client) => {
-      console.log('timeout: ', client);
-    });
-  }, 2000);
-
-  console.log('joined room: ', room, id);
-  // 在线列表
-  // nsp.in(room).clients((err, clients) => {
-  nsp.adapter.clients(rooms, (err, clients) => {
-    console.log('room clients: ', clients);
-
-    // 更新在线用户列表
-    nsp.to(room).emit('online', {
-      clients,
-      action: 'join',
-      target: 'participator',
-      message: `User(${id}) joined.`,
+  // https://github.com/eggjs/egg/issues/3810
+  nsp.once('connection', () => {
+    // 用户加入
+    console.log('#join ', room);
+    socket.join(room);
+    console.log('joined room: ', room, id);
+    // 在线列表
+    // nsp.in(room).clients((err, clients) => {
+    nsp.adapter.clients(rooms, (err, clients) => {
+      console.log('room clients: ', clients);
+  
+      // 更新在线用户列表
+      nsp.to(room).emit('online', {
+        clients,
+        action: 'join',
+        target: 'participator',
+        message: `User(${id}) joined.`,
+      });
     });
   });
 
