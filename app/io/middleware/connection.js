@@ -5,5 +5,5 @@ module.exports = () => async (ctx, next) => {
   ctx.socket.emit('res', 'connected!');
   await next();
   // execute when disconnect
-  console.log('disconnected!');
+  console.log('a user disconnected: ', socket.id);
 };

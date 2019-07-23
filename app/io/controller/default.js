@@ -37,14 +37,27 @@ class DefaultController extends Controller {
   async getOnlineList() {
     const { ctx, app } = this;
     const nsp = app.io.of('/');
-    const query = ctx.socket.handshake;
-    const callback = ctx.args[1];
+    const { query } = ctx.socket.handshake;
+    const callback = ctx.args[0];
     const { room } = query;
 
-    nsp.in(room).clients((err, clients) => {
-      console.log('clients: ', clients);
-      callback(clients);
+    const connected = nsp.in(room).connected;
+    const res = [...Object.keys(connected)].map(key => {
+      const connection = connected[key];
+      const { userId, userName, avatar = '' } = connection.handshake.query;
+      return {
+        userInfo: {
+          userId,
+          userName,
+          avatar
+        },
+        id: key
+      };
     });
+    callback(res);
+    // nsp.in(room).clients((err, clients) => {
+    //   callback(clients);
+    // });
   }
 }
 
