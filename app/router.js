@@ -19,5 +19,6 @@ module.exports = (app) => {
   io.of('/').route('message', io.controller.default.message);
   // 聊天
   io.of('/').route('chat', io.controller.default.chat);
+  io.of('/').route('message', io.controller.default.message);
   io.of('/').route('online-list', io.controller.default.getOnlineList);
 };

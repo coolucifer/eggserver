@@ -33,6 +33,18 @@ class DefaultController extends Controller {
     }
   }
 
+  async message() {
+    const { ctx, app } = this;
+    const nps = app.io.of('/');
+    const message = ctx.args[0] || {};
+
+    try {
+      nps.to('default').emit('message', message);
+    } catch (e) {
+      app.logger.error(e);
+    }
+  }
+
   // 获取房间在线人员名单
   async getOnlineList() {
     const { ctx, app } = this;
