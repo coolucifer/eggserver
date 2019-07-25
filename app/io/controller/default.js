@@ -1,18 +1,18 @@
 const { Controller } = require('egg');
 
 class DefaultController extends Controller {
-  async message() {
-    const { ctx, app } = this;
-    // ctx.args: [{...}, callback]
-    const message = ctx.args[0];
-    const callback = ctx.args[1];
-    await ctx.socket.emit('reply', Object.assign({}, message, {
-      from: 'server',
-      to: 'me',
-      timestamp: +new Date(),
-    }),
-    callback());
-  }
+  // async message() {
+  //   const { ctx } = this;
+  //   // ctx.args: [{...}, callback]
+  //   const message = ctx.args[0];
+  //   const callback = ctx.args[1];
+  //   await ctx.socket.emit('reply', Object.assign({}, message, {
+  //     from: 'server',
+  //     to: 'me',
+  //     timestamp: +new Date(),
+  //   }),
+  //   callback());
+  // }
 
   async chat() {
     const { ctx, app } = this;
@@ -53,7 +53,7 @@ class DefaultController extends Controller {
     const callback = ctx.args[0];
     const { room } = query;
 
-    const connected = nsp.in(room).connected;
+    const { connected } = nsp.in(room);
     const res = [...Object.keys(connected)].map(key => {
       const connection = connected[key];
       const { userId, userName, avatar = '' } = connection.handshake.query;
@@ -61,12 +61,12 @@ class DefaultController extends Controller {
         userInfo: {
           userId,
           userName,
-          avatar
+          avatar,
         },
-        id: key
+        id: key,
       };
     });
-    callback(res);
+    callback(new Array(25).fill(...res));
     // nsp.in(room).clients((err, clients) => {
     //   callback(clients);
     // });
