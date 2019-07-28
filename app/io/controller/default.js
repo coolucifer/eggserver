@@ -66,10 +66,7 @@ class DefaultController extends Controller {
         id: key,
       };
     });
-    callback(new Array(25).fill(...res));
-    // nsp.in(room).clients((err, clients) => {
-    //   callback(clients);
-    // });
+    callback(res);
   }
 }
 
