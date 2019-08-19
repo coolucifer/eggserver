@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "egg-bin dev --sticky",
+    "dev": "egg-bin dev --sticky NODE_ENV=production node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "egg-scripts start --sticky",
     "stop": "egg-scripts stop",
@@ -21,13 +21,9 @@
     "egg-scripts": "^2.11.0",
     "egg-socket.io": "^4.1.6",
     "egg-view-nunjucks": "^2.2.0",
-    "element-ui": "^2.10.1",
-    "highlight.js": "^9.15.8",
-    "marked": "^0.6.3",
+    "element-ui": "^2.11.1",
     "moment": "^2.24.0",
-    "node-sass": "^4.12.0",
     "nuxt": "^2.8.1",
-    "sass-loader": "^7.1.0",
     "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
@@ -36,7 +32,6 @@
     "egg-bin": "^4.13.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0",
-    "webpack": "4.28.4"
+    "eslint-plugin-import": "^2.18.0"
   }
 }
