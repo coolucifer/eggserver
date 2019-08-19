@@ -1,13 +1,10 @@
-const { Nuxt, Builder } = require('nuxt');
+const { Nuxt } = require('nuxt');
 const config = require('../../nuxt.config');
-module.exports = (options, app) => {
+
+module.exports = () => {
   const nuxtRender = new Nuxt(config);
-  let isProduction = process.env.NODE_ENV === 'production';
-  // 在开发模式下启用编译构建和热加载
-  if (!isProduction) {
-    new Builder(nuxtRender).build();
-  }
-  return async function (ctx, next) {
+  return async function nuxt(ctx, next) {
+    const { app } = ctx;
     let flag = false;
     let routerArr = [];
     if (!flag) {
@@ -21,8 +18,8 @@ module.exports = (options, app) => {
     ctx.req.session = ctx.session;
     const { res, req } = ctx;
     return new Promise((resolve, reject) => {
-      ctx.res.on("close", resolve);
-      ctx.res.on("finish", resolve);
+      ctx.res.on('close', resolve);
+      ctx.res.on('finish', resolve);
       nuxtRender.render(req, res, promise => {
         promise.then(resolve).catch(reject);
       });
