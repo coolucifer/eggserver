@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 module.exports = {
+  buildDir: 'client/nuxt',
   srcDir: 'client/',
   server: {
     port: 7001, // default: 3000
