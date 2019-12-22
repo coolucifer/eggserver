@@ -13,27 +13,27 @@
   "author": "victor",
   "license": "ISC",
   "dependencies": {
-    "@nuxtjs/axios": "^5.5.4",
+    "@nuxtjs/axios": "^5.9.0",
     "await-stream-ready": "^1.0.1",
-    "egg": "^2.22.2",
-    "egg-cors": "^2.2.0",
+    "egg": "^2.26.0",
+    "egg-cors": "^2.2.3",
     "egg-mongoose": "^3.2.0",
-    "egg-scripts": "^2.11.0",
+    "egg-scripts": "^2.12.0",
     "egg-socket.io": "^4.1.6",
     "egg-view-nunjucks": "^2.2.0",
-    "element-ui": "^2.11.1",
-    "highlight.js": "^9.15.9",
+    "element-ui": "^2.13.0",
+    "highlight.js": "^9.17.1",
     "marked": "^0.7.0",
     "moment": "^2.24.0",
-    "nuxt": "^2.8.1",
+    "nuxt": "^2.11.0",
     "stream-wormhole": "^1.1.0"
   },
   "devDependencies": {
-    "acorn": "^6.1.1",
+    "acorn": "^6.4.0",
     "acorn-dynamic-import": "^4.0.0",
-    "egg-bin": "^4.13.1",
+    "egg-bin": "^4.14.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-plugin-import": "^2.18.0"
+    "eslint-plugin-import": "^2.19.1"
   }
 }
