@@ -21,7 +21,7 @@ exports.files = {
 
 exports.mongoose = {
   client: {
-    url: 'mongodb://manager:main_db_manager@89.208.248.45:27017/main',
+    url: 'mongodb://manager:main_db_manager@89.208.248.23:27017/main',
     options: {},
   },
 };
