@@ -39,7 +39,6 @@ class UpdateWowToken extends Subscription {
         Authorization: `Bearer ${this.accessToken}`,
       },
     });
-    console.log(new Date(), 'getTokenData');
     return new Promise((resolve, reject) => {
       if (res.status === 200) {
         resolve({ data: res.data });
@@ -70,8 +69,6 @@ class UpdateWowToken extends Subscription {
       updateTime,
       price,
     });
-    const response = await this.ctx.service.wowToken.query();
-    console.log(new Date(), 'res: ', response);
   }
 }
 
