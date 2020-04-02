@@ -18,7 +18,7 @@ class WowTokenService extends Service {
     const res = await ctx.model.WowToken
       .find({}, {
         updateTime: 1, price: 1, createTime: 1,
-      }).sort({ _id: -1 });
+      }).sort({ _id: 1 });
     return res;
   }
 }
