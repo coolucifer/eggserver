@@ -1,11 +1,12 @@
 // 定时任务更新怀旧服时光徽章价格
 // https://eggjs.org/zh-cn/basics/schedule.html
-const Subscription = require('egg').Subscription;
+const { Subscription } = require('egg');
 
 class UpdateWowToken extends Subscription {
   super() {
     this.accessToken = '';
   }
+
   // 通过 schedule 属性来设置定时任务的执行间隔等配置
   static get schedule() {
     return {
@@ -13,7 +14,7 @@ class UpdateWowToken extends Subscription {
       cron: '0 */20 * * * *',
       type: 'all', // 指定所有的 worker 都需要执行,
       immediate: true, // 应用启动后立即执行一次
-    }
+    };
   }
 
   async getAccessToken() {
@@ -35,15 +36,16 @@ class UpdateWowToken extends Subscription {
     const res = await this.ctx.curl('https://gateway.battlenet.com.cn/data/wow/token/index?namespace=dynamic-classic-cn&local=zh-CN', {
       dataType: 'json',
       headers: {
-        'Authorization': `Bearer ${this.accessToken}`,
-      }
+        Authorization: `Bearer ${this.accessToken}`,
+      },
     });
     console.log(new Date(), 'getTokenData');
     return new Promise((resolve, reject) => {
-      if (res.status === 200 ) {
+      if (res.status === 200) {
         resolve({ data: res.data });
       } else {
-        reject({ status: res.status, data: res.data });
+        const err = { status: res.status, data: res.data };
+        reject(err);
       }
     });
   }
@@ -68,7 +70,7 @@ class UpdateWowToken extends Subscription {
       updateTime,
       price,
     });
-    const response = await this.ctx.service.wowToken.retrieve();
+    const response = await this.ctx.service.wowToken.query();
     console.log(new Date(), 'res: ', response);
   }
 }
