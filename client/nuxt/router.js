@@ -8,6 +8,7 @@ const _dbf30e66 = () => interopDefault(import('..\\pages\\practice\\index.vue' /
 const _35a3e855 = () => interopDefault(import('..\\pages\\practice\\colorfulballs.vue' /* webpackChunkName: "pages_practice_colorfulballs" */))
 const _bf824e46 = () => interopDefault(import('..\\pages\\practice\\repeater.vue' /* webpackChunkName: "pages_practice_repeater" */))
 const _67220f1a = () => interopDefault(import('..\\pages\\practice\\tree.vue' /* webpackChunkName: "pages_practice_tree" */))
+const _3f1cc8ef = () => interopDefault(import('..\\pages\\practice\\wowToken.vue' /* webpackChunkName: "pages_practice_wowToken" */))
 const _27184eee = () => interopDefault(import('..\\pages\\blog\\_id.vue' /* webpackChunkName: "pages_blog__id" */))
 const _35825de8 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
@@ -40,6 +41,10 @@ export const routerOptions = {
     path: "/practice/tree",
     component: _67220f1a,
     name: "practice-tree"
+  }, {
+    path: "/practice/wowToken",
+    component: _3f1cc8ef,
+    name: "practice-wowToken"
   }, {
     path: "/blog/:id?",
     component: _27184eee,
