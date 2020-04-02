@@ -61,8 +61,8 @@ class UpdateWowToken extends Subscription {
       if (e.status === 401) {
         // 未授权(accessToken过期)
         await this.getAccessToken();
-        res = await this.getWowTokenData();
       }
+      res = await this.getWowTokenData();
     }
     const { last_updated_timestamp: updateTime, price } = res.data;
     this.ctx.service.wowToken.create({
