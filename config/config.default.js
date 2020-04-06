@@ -1,6 +1,6 @@
 exports.keys = '334433';
 
-exports.middleware = ['nuxt'];
+exports.middleware = ['nuxt', 'compress'];
 
 // 添加view配置
 exports.view = {
@@ -55,4 +55,8 @@ exports.multipart = {
   fileExtensions: [
     '.pdf',
   ],
+};
+
+exports.compress = {
+  threshold: 2048,
 };
