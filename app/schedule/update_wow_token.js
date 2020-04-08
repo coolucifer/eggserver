@@ -44,6 +44,7 @@ class UpdateWowToken extends Subscription {
         resolve({ data: res.data });
       } else {
         const err = { status: res.status, data: res.data };
+        console.log(new Date(), 'ERR_GET_TOKEN_DATA: ', err);
         reject(err);
       }
     });
@@ -65,6 +66,7 @@ class UpdateWowToken extends Subscription {
       res = await this.getWowTokenData();
     }
     const { last_updated_timestamp: updateTime, price } = res.data;
+    console.log(new Date(), 'token: ', { updateTime: new Date(updateTime), price });
     this.ctx.service.wowToken.create({
       updateTime,
       price,
