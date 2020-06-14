@@ -2,8 +2,10 @@ import Vue from 'vue'
 
 import {
   getMatchedComponentsInstances,
+  getChildrenComponentInstancesUsingFetch,
   promisify,
-  globalHandleError
+  globalHandleError,
+  sanitizeComponent
 } from './utils'
 
 import NuxtLoading from './components/nuxt-loading.vue'
@@ -15,11 +17,9 @@ import '..\\node_modules\\element-ui\\lib\\theme-chalk\\index.css'
 import _2d21d098 from '..\\layouts\\blog.vue'
 import _6f6c098b from '..\\layouts\\default.vue'
 
-const layouts = { "_blog": _2d21d098,"_default": _6f6c098b }
+const layouts = { "_blog": sanitizeComponent(_2d21d098),"_default": sanitizeComponent(_6f6c098b) }
 
 export default {
-  head: {"title":"blog","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"My swell Nuxt.js project"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"blog"},{"hid":"author","name":"author","content":"doco.dev"},{"hid":"theme-color","name":"theme-color","content":"#666"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"blog"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"blog"},{"hid":"og:description","name":"og:description","property":"og:description","content":"My swell Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon_icon.png"},{"rel":"stylesheet","href":"\u002F\u002Fat.alicdn.com\u002Ft\u002Ffont_784085_25wsqhd6xxm.css"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.ad07a666.json"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
-
   render (h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })
 
@@ -29,7 +29,7 @@ export default {
         id: '__layout'
       },
       key: this.layoutName
-    }, [ layoutEl ])
+    }, [layoutEl])
 
     const transitionEl = h('transition', {
       props: {
@@ -44,7 +44,7 @@ export default {
           })
         }
       }
-    }, [ templateEl ])
+    }, [templateEl])
 
     return h('div', {
       domProps: {
@@ -61,8 +61,10 @@ export default {
     isOnline: true,
 
     layout: null,
-    layoutName: ''
-  }),
+    layoutName: '',
+
+    nbFetching: 0
+    }),
 
   beforeCreate () {
     Vue.util.defineReactive(this, 'nuxt', this.$options.nuxt)
@@ -95,6 +97,10 @@ export default {
   computed: {
     isOffline () {
       return !this.isOnline
+    },
+
+      isFetching() {
+      return this.nbFetching > 0
     }
   },
 
@@ -123,8 +129,17 @@ export default {
       const promises = pages.map((page) => {
         const p = []
 
-        if (page.$options.fetch) {
+        // Old fetch
+        if (page.$options.fetch && page.$options.fetch.length) {
           p.push(promisify(page.$options.fetch, this.context))
+        }
+        if (page.$fetch) {
+          p.push(page.$fetch())
+        } else {
+          // Get all component instance to call $fetch
+          for (const component of getChildrenComponentInstancesUsingFetch(page.$vnode.componentInstance)) {
+            p.push(component.$fetch())
+          }
         }
 
         if (page.$options.asyncData) {
@@ -143,7 +158,7 @@ export default {
       try {
         await Promise.all(promises)
       } catch (error) {
-        this.$loading.fail()
+        this.$loading.fail(error)
         globalHandleError(error)
         this.error(error)
       }
@@ -153,7 +168,7 @@ export default {
     errorChanged () {
       if (this.nuxt.err && this.$loading) {
         if (this.$loading.fail) {
-          this.$loading.fail()
+          this.$loading.fail(this.nuxt.err)
         }
         if (this.$loading.finish) {
           this.$loading.finish()

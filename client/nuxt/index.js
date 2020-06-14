@@ -28,7 +28,7 @@ Vue.component(NoSsr.name, {
     if (process.client && !NoSsr._warned) {
       NoSsr._warned = true
 
-      console.warn(`<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead`)
+      console.warn('<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead')
     }
     return NoSsr.render(h, ctx)
   }
@@ -40,7 +40,7 @@ Vue.component('NChild', NuxtChild)
 
 // Component NuxtLink is imported in server.js or client.js
 
-// Component: <Nuxt>`
+// Component: <Nuxt>
 Vue.component(Nuxt.name, Nuxt)
 
 Vue.use(Meta, {"keyName":"head","attribute":"data-n-head","ssrAttribute":"data-n-head-ssr","tagIDKeyName":"hid"})
@@ -63,14 +63,16 @@ async function createApp (ssrContext) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
+    head: {"title":"blog","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"My swell Nuxt.js project"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"blog"},{"hid":"author","name":"author","content":"doco.dev"},{"hid":"theme-color","name":"theme-color","content":"#666"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"blog"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"blog"},{"hid":"og:description","name":"og:description","property":"og:description","content":"My swell Nuxt.js project"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon_icon.png"},{"rel":"stylesheet","href":"\u002F\u002Fat.alicdn.com\u002Ft\u002Ffont_784085_scgm6o391nr.css"},{"rel":"manifest","href":"\u002F_nuxt\u002Fmanifest.ad07a666.json"}],"style":[],"script":[],"htmlAttrs":{"lang":"en"}},
+
     store,
     router,
     nuxt: {
       defaultTransition,
-      transitions: [ defaultTransition ],
+      transitions: [defaultTransition],
       setTransitions (transitions) {
         if (!Array.isArray(transitions)) {
-          transitions = [ transitions ]
+          transitions = [transitions]
         }
         transitions = transitions.map((transition) => {
           if (!transition) {
@@ -92,7 +94,10 @@ async function createApp (ssrContext) {
         err = err || null
         app.context._errored = Boolean(err)
         err = err ? normalizeError(err) : null
-        const nuxt = this.nuxt || this.$options.nuxt
+        let nuxt = app.nuxt // to work with @vue/composition-api, see https://github.com/nuxt/nuxt.js/issues/6517#issuecomment-573280207
+        if (this) {
+          nuxt = this.nuxt || this.$options.nuxt
+        }
         nuxt.dateErr = Date.now()
         nuxt.err = err
         // Used in src/server.js
@@ -114,7 +119,7 @@ async function createApp (ssrContext) {
   if (ssrContext) {
     route = router.resolve(ssrContext.url).route
   } else {
-    const path = getLocation(router.options.base)
+    const path = getLocation(router.options.base, router.options.mode)
     route = router.resolve(path).route
   }
 
@@ -136,7 +141,7 @@ async function createApp (ssrContext) {
       throw new Error('inject(key, value) has no key provided')
     }
     if (value === undefined) {
-      throw new Error('inject(key, value) has no value provided')
+      throw new Error(`inject('${key}', value) has no value provided`)
     }
 
     key = '$' + key
@@ -154,7 +159,7 @@ async function createApp (ssrContext) {
     Vue[installKey] = true
     // Call Vue.use() to install the plugin into vm
     Vue.use(() => {
-      if (!Vue.prototype.hasOwnProperty(key)) {
+      if (!Object.prototype.hasOwnProperty.call(Vue, key)) {
         Object.defineProperty(Vue.prototype, key, {
           get () {
             return this.$root.$options[key]
